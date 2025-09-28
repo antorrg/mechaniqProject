@@ -15,20 +15,20 @@ const getNumberEnv = (value: string | undefined, defaultValue: number): number =
   return parseInt(value ?? defaultValue.toString(), 10)
 }
 const getStringEnv = (key: string, defaultValue?: string): string => {
-  const value = process.env[key];
-  if (!value || value.trim() === "") {
+  const value = process.env[key]
+  if (!value || value.trim() === '') {
     if (defaultValue === undefined) {
-      throw new Error(`❌ Missing required env var: ${key}`);
+      throw new Error(`❌ Missing required env var: ${key}`)
     }
-    return defaultValue;
+    return defaultValue
   }
-  return value;
-};
+  return value
+}
 
 const envConfig = {
   Port: getNumberEnv(process.env.PORT, 3000),
   Status: NODE_ENV,
-  DatabaseUrl: getStringEnv('DATABASE_URL'),
+  DatabaseUrl: getStringEnv('DATABASE_URL')
 }
 
 export default envConfig

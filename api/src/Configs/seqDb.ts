@@ -11,7 +11,7 @@ Object.values(models).forEach((modelDef) => {
   modelDef(sequelize)
 })
 
-const { 
+const {
   User,
   Car,
   Service
@@ -49,11 +49,11 @@ const closeDatabase = async () => {
   console.log('🛑 Database disconnect')
 }
 
-export { 
-  startUp, 
-  closeDatabase, 
-  sequelize, 
+export {
+  startUp,
+  closeDatabase,
+  sequelize,
   User,
   Car,
-  Service,
- }
+  Service
+}

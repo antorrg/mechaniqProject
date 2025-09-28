@@ -27,6 +27,7 @@ describe('SequelizeRepository unit test', () => {
                 numberId:'12345678',
                 username: 'user',
                 picture: 'https://picsum.photos/200?random=16',
+                role: 'Usuario',
                 enabled: true
             })
             store.setStringId(response.results.id)
@@ -59,6 +60,7 @@ describe('SequelizeRepository unit test', () => {
                 numberId:'12345678',
                 username: 'user',
                 picture: 'https://picsum.photos/200?random=16',
+                role: 'Usuario',
                 enabled: true
             })
           })
@@ -76,6 +78,7 @@ describe('SequelizeRepository unit test', () => {
                 numberId:'12345678',
                 username: "Fifteen",
                 picture: "https://picsum.photos/200?random=15",
+                role: 'Usuario',
                 enabled: false
             })
             

@@ -32,6 +32,7 @@ describe('RelatedRepository unit test', () => {
                 numberId:'12345678',
                 username: 'One',
                 picture: 'https://picsum.photos/200?random=1',
+                role: 'Usuario',
                 enabled: true,
                 cars: [{
                     id: expect.any(String),
@@ -59,6 +60,7 @@ describe('RelatedRepository unit test', () => {
                 numberId:'12345678',
                 username: 'One',
                 picture: 'https://picsum.photos/200?random=1',
+                role: 'Usuario',
                 enabled: true,
                 cars: [{
                     id: expect.any(String),
@@ -80,6 +82,7 @@ describe('RelatedRepository unit test', () => {
                 numberId:'12345678',
                 username: "Fifteen",
                 picture: "https://picsum.photos/200?random=15",
+                role: 'Usuario',
                 enabled: false,
                 cars:[{
                     id: expect.any(String),

@@ -39,12 +39,12 @@ export class BaseController<TDTO, TCreate, TUpdate> {
     const { id } = req.params
     const data = req.body
     const response = await this.service.update(id, data)
-    BaseController.responder(res, 200, true,response.message, response.results)
+    BaseController.responder(res, 200, true, response.message, response.results)
   }
 
   delete = async (req: Request, res: Response) => {
     const { id } = req.params
     const response = this.service.delete(id)
-    BaseController.responder(res, 200, true,'', response)
+    BaseController.responder(res, 200, true, '', response)
   }
 }

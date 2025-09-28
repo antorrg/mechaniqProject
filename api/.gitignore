@@ -53,6 +53,8 @@ web_modules/
 
 # Optional npm cache directory
 .npm
+# Firebase configs files
+firebase-admin-key.json
 
 # Optional eslint cache
 .eslintcache

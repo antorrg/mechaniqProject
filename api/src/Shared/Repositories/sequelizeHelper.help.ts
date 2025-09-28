@@ -8,6 +8,7 @@ export interface IUserTestSeq {
     typeId: string 
     numberId: string 
     picture?: string | null
+    role: string |number
     enabled: boolean
 }
 export interface CreateUserInput {
@@ -18,6 +19,7 @@ export interface CreateUserInput {
     typeId: string
     numberId: string
     picture?: string | null
+    role: string |number
     enabled: boolean
 }
 export type UpdateUserInput = Partial<CreateUserInput>
@@ -33,6 +35,7 @@ export const parser = (u: InstanceType<typeof User>): IUserTestSeq => {
     typeId: raw.typeId,
     numberId: raw.numberId,
     picture: raw.picture,
+    role: roleConverter(raw.role),
     enabled: raw.enabled
   }
 }
@@ -55,6 +58,7 @@ export const relatedParser = (
     typeId: raw.typeId,
     numberId: raw.numberId,
     picture: raw.picture,
+    role: roleConverter(raw.role),
     enabled: raw.enabled,
     cars: raw.Cars
       ? raw.Cars.map((c: any) => ({
@@ -64,7 +68,19 @@ export const relatedParser = (
       : []
   }
 }
-
+function roleConverter(role:number):string{
+  switch(Number(role)){
+    case 2:
+      return 'Mecanico'
+    case 3:
+      return 'Admin'
+    case 9:
+      return 'Root'
+    default:
+      case 1:
+      return 'Usuario'
+  }
+}
 export const dataCreate = {
   email: 'user@email.com',
   password: '123456',
@@ -82,6 +98,7 @@ export const dataUpdate: UpdateUserInput = {
   typeId: 'dni',
   numberId:'12345678',
   picture: 'https://picsum.photos/200?random=16',
+  role: 'Usuario',
   enabled: true
 }
 

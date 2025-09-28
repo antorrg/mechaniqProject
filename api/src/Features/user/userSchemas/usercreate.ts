@@ -1,56 +1,50 @@
-import type { Schema } from "req-valid-express";
+import type { Schema } from 'req-valid-express'
 
 const usercreate: Schema = {
   email: {
-    type: "string",
+    type: 'string',
     sanitize: {
       trim: true,
       escape: true
     }
   },
   username: {
-    type: "string",
+    type: 'string',
     sanitize: {
       trim: true,
       escape: true
     }
   },
   typeId: {
-    type: "string",
+    type: 'string',
     sanitize: {
       trim: true,
-      escape: true
+      escape: true,
+      uppercase: true
     }
   },
   numberId: {
-    type: "string",
+    type: 'string',
     sanitize: {
       trim: true,
       escape: true
     }
   },
   country: {
-    type: "string",
+    type: 'string',
     sanitize: {
       trim: true,
-      escape: true
-    }
-  },
-  role: {
-    type: "string",
-    default: "user",
-    sanitize: {
-      trim: true,
-      escape: true
+      escape: true,
+      lowercase: true
     }
   },
   picture: {
-    type: "string",
-    default: "https://urlimageprueba.net",
+    type: 'string',
+    default: 'https://urlimageprueba.net',
     sanitize: {
       trim: true
     }
   }
-};
+}
 
-export default usercreate;
+export default usercreate

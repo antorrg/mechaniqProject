@@ -31,8 +31,5 @@ export interface IBaseRepository<TDTO, TCreate, TUpdate> {
   delete: (id: string | number) => Promise<IRepositoryResponse<string>>
 }
 export interface IExternalImageDeleteService<T> {
-  deleteImage: (imageInfo: T) => Promise<boolean>
-}
-export const mockImageDeleteService: IExternalImageDeleteService<any> = {
-  deleteImage: async (_imageInfo: any) => await Promise.resolve(true)
+  deleteImage: (imageInfo: string) => Promise<string>
 }

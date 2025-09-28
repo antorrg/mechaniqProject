@@ -10,6 +10,7 @@ export interface UserAttributes {
   typeId: string
   numberId: string
   picture?: string | null
+  role: number
   enabled: boolean
   createdAt?: Date
   updatedAt?: Date
@@ -19,7 +20,7 @@ export interface UserAttributes {
 // Atributos opcionales al crear (por ejemplo `id` lo genera Sequelize)
 export type UserCreationAttributes = Optional<
 UserAttributes,
-'id' | 'nickname' | 'picture' | 'enabled'| 'createdAt' | 'updatedAt' | 'deletedAt'
+'id' | 'nickname' | 'picture' | 'role' | 'enabled' | 'createdAt' | 'updatedAt' | 'deletedAt'
 >
 
 // Definición de la clase User tipada
@@ -34,6 +35,7 @@ export class User
   declare typeId: string
   declare numberId: string
   declare picture: string | null
+  declare role: number
   declare enabled: boolean
   declare readonly createdAt: Date
   declare readonly updatedAt: Date
@@ -78,6 +80,12 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         allowNull: true
       },
+      role: {
+        type: DataTypes.SMALLINT,
+        allowNull: false,
+        defaultValue: 1,
+        validate: { isIn: [[1, 2, 3, 9]] }
+      },
       enabled: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
@@ -89,14 +97,14 @@ export default (sequelize: Sequelize) => {
       tableName: 'users',
       timestamps: true,
       paranoid: true,
-        scopes: {
-            enabledOnly: {
-                where: {
-                    enabled: true
-                }
-            },
-            allRecords: {} // No aplica ningún filtro
+      scopes: {
+        enabledOnly: {
+          where: {
+            enabled: true
+          }
         },
+        allRecords: {} // No aplica ningún filtro
+      }
     }
   )
 

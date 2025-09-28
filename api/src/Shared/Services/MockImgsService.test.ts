@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import MockImgsService from "./MockImgsService.js"; // ajusta la ruta según tu proyecto
 
-const uploadDir = "./test/helperTest/uploads";
+const uploadDir = "./assets/uploads";
 const fakeFile = {
   originalname: "test-image.png",
   buffer: Buffer.from("contenido-de-prueba", "utf-8"),
