@@ -1,9 +1,10 @@
-// import 'express-serve-static-core'
+import { type JwtPayload } from '../Shared/Auth/Auth.ts'
 
-// declare module 'express-serve-static-core' {
-//   interface Request {
-//     context?: {
-//       query?: Record<string, any>
-//     }
-//   }
-// }
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload
+      userInfo?: { userId?: string, userRole?: number }
+    }
+  }
+}

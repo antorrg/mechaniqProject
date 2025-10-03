@@ -1,5 +1,6 @@
 import { type Request, type Response, type NextFunction } from 'express'
 import bcrypt from 'bcrypt'
+import { throwError } from '../../Configs/errorHandlers.js'
 
 export class UserMiddlewares {
   static createUserPrepare = async (req: Request, res: Response, next: NextFunction) => {
@@ -10,13 +11,25 @@ export class UserMiddlewares {
       password: await bcrypt.hash(assambledPass, 12),
       nickname: email.split('@')[0],
       username,
-      typeId,
+      typeId: typeId.toUpperCase(),
       numberId,
       country: capitalizeFirstLetter(country),
       picture,
       clientPassword: assambledPass
     }
     next()
+  }
+}
+
+export interface resetPass {
+  hashedPassword: string
+  recoveredPass: string
+}
+export async function resetedPass (typeDoc: string, doc: string): Promise<resetPass> {
+  const pass = passwordFormatter(typeDoc, doc)
+  return {
+    hashedPassword: await bcrypt.hash(pass, 12),
+    recoveredPass: pass
   }
 }
 

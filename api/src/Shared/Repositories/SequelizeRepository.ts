@@ -35,9 +35,9 @@ export class SequelizeRepository<
     // 🔽 Transformar Record<keyof TDTO, Direction> en [['field', 'ASC']]
     const orderClause = options?.order
       ? (Object.entries(options.order).map(([field, dir]) => [
-          field,
-          dir === 1 ? 'ASC' : dir === -1 ? 'DESC' : dir
-        ]) as Array<[string, 'ASC' | 'DESC']>)
+        field,
+        dir === 1 ? 'ASC' : dir === -1 ? 'DESC' : dir
+      ]) as Array<[string, 'ASC' | 'DESC']>)
       : undefined
 
     const { rows, count } = await this.Model.findAndCountAll({

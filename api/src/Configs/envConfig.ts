@@ -28,7 +28,10 @@ const getStringEnv = (key: string, defaultValue?: string): string => {
 const envConfig = {
   Port: getNumberEnv(process.env.PORT, 3000),
   Status: NODE_ENV,
-  DatabaseUrl: getStringEnv('DATABASE_URL')
+  DatabaseUrl: getStringEnv('DATABASE_URL'),
+  ExpiresIn: getStringEnv('JWT_EXPIRES_IN'),
+  Secret: getStringEnv('JWT_SECRET')
+
 }
 
 export default envConfig

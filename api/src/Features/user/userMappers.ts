@@ -1,8 +1,9 @@
 import { type User } from '../../Configs/seqDb.js'
-export interface IUserTestSeq {
+import { type IBaseRepository, type IRepositoryResponse } from '../../Shared/Interfaces/base.interface.js'
+export interface IUserSeq {
   id: string
   email: string
-  password: string
+  password?: string
   nickname?: string | null
   username: string
   typeId: string
@@ -13,7 +14,7 @@ export interface IUserTestSeq {
 }
 export interface CreateUserInput {
   email: string
-  password: string
+  password?: string
   nickname?: string | null
   username: string
   typeId: string
@@ -24,8 +25,8 @@ export interface CreateUserInput {
 }
 export type UpdateUserInput = Partial<CreateUserInput>
 
-export const parser = (u: InstanceType<typeof User>): IUserTestSeq => {
-  const raw = u.get() // u.get() da un objeto plano con todos los atributos
+export const parser = (u: InstanceType<typeof User>): IUserSeq => {
+  const raw = u.get()
   return {
     id: raw.id,
     email: raw.email,
@@ -39,20 +40,28 @@ export const parser = (u: InstanceType<typeof User>): IUserTestSeq => {
     enabled: raw.enabled
   }
 }
-export interface IUserWithCarTestSeq extends IUserTestSeq {
+export interface IUserWithCarSeq extends IUserSeq {
   cars?: Array<{
     id: string
     patent: string
   }>
 }
+export interface IUserTokenResponse extends IRepositoryResponse<{ user: IUserWithCarSeq, token?: string }> {
+}
+export interface IUserResponse extends IRepositoryResponse<IUserWithCarSeq> {
+}
+export interface IUserRepository extends IBaseRepository<IUserWithCarSeq, CreateUserInput, UpdateUserInput> {
+  login: (data: { email: string, password: string }) => Promise<IUserTokenResponse>
+  verifyPassword: (data: { id: string, password: string, newPassword: string }) => Promise<IUserResponse>
+}
+
 export const relatedParser = (
   u: InstanceType<typeof User>
-): IUserWithCarTestSeq => {
+): IUserWithCarSeq => {
   const raw = u.get({ plain: true })
   return {
     id: raw.id,
     email: raw.email,
-    password: raw.password,
     nickname: raw.nickname,
     username: raw.username,
     typeId: raw.typeId,
@@ -76,17 +85,14 @@ enum Role {
   Root = 9
 }
 // Declaración de tipos
-function parsedRole (value: number): string
-function parsedRole (value: string): number
+export function parsedRole (value: number): string
+export function parsedRole (value: string): number
 
-// Función genérica
-function parsedRole (value: number | string | null | undefined): string | number {
+export function parsedRole (value: number | string | null | undefined): string | number {
   if (typeof value === 'number') {
-    // Filtrar NaN o valores fuera del enum
     return Number.isFinite(value) && Role[value] ? Role[value] : 'Usuario'
   }
   if (typeof value === 'string') {
-    // Trim para evitar espacios, chequeo de clave válida
     const key = value.trim()
     return key in Role ? Role[key as keyof typeof Role] : 1
   }

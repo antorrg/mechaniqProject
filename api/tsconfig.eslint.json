@@ -1,4 +1,14 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src", "test", "vitest.config.ts", "test/vitest.setup.ts"]
+  "exclude":["dist", "node_modules"],
+  "include": [
+    "src", 
+    "test", 
+    "test/**/*.ts",
+     "test/**/*.int.spec.ts",
+    "test/**/*.help.ts",
+    "vitest.config.ts", 
+    "test/vitest.setup.ts", 
+    "src/**/*.test.ts", 
+    "src/**/*.help.ts"]
 }

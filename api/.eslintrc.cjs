@@ -7,6 +7,7 @@ module.exports = {
     project: "./tsconfig.eslint.json"
   },
   rules: {
+    "@typescript-eslint/indent": ["error", 2],
     // Puedes agregar reglas personalizadas aquí si lo deseas
     // Por ejemplo:
     // 'semi': ['error', 'never'],

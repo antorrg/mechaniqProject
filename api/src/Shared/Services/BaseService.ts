@@ -60,43 +60,9 @@ export class BaseService<TDTO, TCreate, TUpdate> {
       }
 
       const updated = await this.repository.update(id, data)
-      const imgDeleted = await this.handleImageDeletion(imageUrl!)
+      const imgDeleted = activeDel ? await this.handleImageDeletion(imageUrl!) : null
       const messageUpd =
       activeDel ? `${updated.message}\n${imgDeleted}` : updated.message
-
-      return {
-        message: messageUpd,
-        results: updated.results
-      }
-    } catch (error) {
-      console.error('Update error', error)
-      throw error
-    }
-  }
-
-  async updated<K extends keyof TDTO & keyof TUpdate>(
-    id: string | number,
-    data: TUpdate
-  ): Promise<IRepositoryResponse<TDTO>> {
-    let imageUrl: string | null = null
-    let activeDel = false
-
-    try {
-      const register = await this.getById(id)
-      if (!register) throwError('Element not found', 404)
-
-      // 👇 Usamos una variable intermedia tipada
-      const key = this.nameImage as K
-
-      if (this.useImage && (register.results[key] as unknown) !== (data[key] as unknown)) {
-        imageUrl = register.results[key] as unknown as string
-        activeDel = true
-      }
-
-      const updated = await this.repository.update(id, data)
-      const imgDeleted = await this.handleImageDeletion(imageUrl!)
-      const messageUpd =
-      activeDel ? `${updated.message} and ${imgDeleted}` : updated.message
 
       return {
         message: messageUpd,
@@ -122,7 +88,6 @@ export class BaseService<TDTO, TCreate, TUpdate> {
       const imgDeleted = await this.handleImageDeletion(imageUrl!)
       const messageUpd =
       activeDel ? `${deleted.message} and ${imgDeleted}` : deleted.message
-      console.log('en delete: ', imgDeleted)
       return {
         message: messageUpd,
         results: deleted.results

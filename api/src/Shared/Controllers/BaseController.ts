@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express'
 import { type BaseService } from '../Services/BaseService.js'
 
-export class BaseController<TDTO, TCreate, TUpdate> {
-  protected service: BaseService<TDTO, TCreate, TUpdate>
-  constructor (service: BaseService<TDTO, TCreate, TUpdate>) {
+export class BaseController<TDTO, TCreate, TUpdate, TService extends BaseService<TDTO, TCreate, TUpdate> = BaseService<TDTO, TCreate, TUpdate>> {
+  protected service: TService
+  constructor (service: TService) {
     this.service = service
   }
 

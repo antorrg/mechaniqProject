@@ -1,8 +1,15 @@
 let stringId: string = ''
+let stringAdminId: string = ''
 
-export const setStringId = (id: string) => {
-    stringId = id;
+export const setStringAdminId = (id: string) => {
+  stringAdminId = id
 }
-export const getStringId = ():string => {
-    return stringId;
+export const getStringAdminId = (): string => {
+  return stringAdminId
+}
+export const setStringId = (id: string) => {
+  stringId = id
+}
+export const getStringId = (): string => {
+  return stringId
 }
