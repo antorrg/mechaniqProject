@@ -3,6 +3,7 @@ import { type Sequelize, DataTypes, Model, type Optional } from 'sequelize'
 export interface ServiceAttributes {
   id: string
   type?: string | null
+  CarId: string
   detail: string
   date_in: number
   date_out?: number | null
@@ -21,6 +22,7 @@ export class Service extends Model<ServiceAttributes, ServiceCreationAttributes>
   implements ServiceAttributes {
   declare id: string
   declare type: string | null
+  declare CarId: string
   declare detail: string
   declare date_in: number
   declare date_out: number | null
@@ -79,6 +81,10 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
+      },
+      CarId: {
+        type: DataTypes.UUID,
+        allowNull: false
       }
     },
     {

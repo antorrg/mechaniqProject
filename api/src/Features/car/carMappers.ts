@@ -2,6 +2,7 @@ import { type Car } from '../../Configs/seqDb.js'
 import { type IBaseRepository, type IRepositoryResponse } from '../../Shared/Interfaces/base.interface.js'
 export interface ICarSeq {
   id: string
+  userId: string
   licensePlate: string
   brand: string
   model?: string | null
@@ -17,6 +18,7 @@ export interface ICarSeq {
 }
 export interface CreateCarInput {
   licensePlate: string
+  userId: string
   brand: string
   model?: string | null
   year: number
@@ -29,9 +31,9 @@ export interface CreateCarInput {
 export type UpdateCarInput = Partial<CreateCarInput>
 
 export interface ICarWithUser extends ICarSeq {
-  user?: Array<{
+  service?: Array<{
     id: string
-    email: string
+    type: string
   }>
 }
 
@@ -42,6 +44,7 @@ export const carParser = (u: InstanceType<typeof Car>): ICarWithUser=> {
   const raw = u.get()
   return {
     id: raw.id,
+    userId: raw.UserId,
     licensePlate: raw.licensePlate,
     brand: raw.brand,
     model: raw.model,
@@ -51,10 +54,10 @@ export const carParser = (u: InstanceType<typeof Car>): ICarWithUser=> {
     observations: raw.observations,
     picture: raw.picture,
     enabled: raw.enabled,
-    user: raw.Users
-      ? raw.User.map((c: any) => ({
+    service: raw.Services
+      ? raw.Services.map((c: any) => ({
         id: c.id,
-        email: c.email
+        type: c.type
       }))
       : []
   }

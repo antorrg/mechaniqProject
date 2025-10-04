@@ -3,6 +3,7 @@ import { type Sequelize, DataTypes, Model, type Optional } from 'sequelize'
 export interface CarAttributes {
   id: string
   licensePlate: string
+  UserId: string
   brand: string
   model?: string | null
   year: number
@@ -22,6 +23,7 @@ export class Car extends Model<CarAttributes, CarCreationAttributes>
   implements CarAttributes {
   declare id: string
   declare licensePlate: string
+  declare UserId: string
   declare brand: string
   declare model: string | null
   declare year: number
@@ -80,6 +82,10 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
+      },
+      UserId: {
+        type: DataTypes.UUID,
+        allowNull: false
       }
     },
     {
